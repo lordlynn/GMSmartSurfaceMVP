@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>PRNDS Interface</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/prnds.css">
+	<script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div  class="row justify-content-center" style="position: relative;">
+			<img id="main_img" src="./images/dashboard.png" />
+			<img id="brake_img" src="./images/brake_on.png" class="brake_pedal" />
+			<img id="park_img" src="./images/p_selected.png" class="park_gear" />
+			<img id="engine_img" src="./images/engine_lit.png" class="engine" />
+			<img id="rev_img" src="./images/r.png" class="rev_gear" />
+			<img id="neutral_img" src="./images/n.png" class="neutral_gear" />
+			<img id="drive_img" src="./images/d.png" class="drive_gear" />
+			<img id="sport_img" src="./images/s.png" class="sport_gear" />
+			<span id="speed_txt" class="speed">0</span>
+			<span id="empty_txt" class="empty">E</span>
+			<span id="full_txt" class="full">F</span>
+		</div>
+	</div>
+
+	<script src="/scripts/jquery-3.3.1.slim.min.js"></script>
+	<script src="/scripts/bootstrap/bootstrap.min.js"></script>
+
+	<script type="text/javascript" language="javascript" src="/scripts/demo.js"></script>
+</body>
+
+</html>

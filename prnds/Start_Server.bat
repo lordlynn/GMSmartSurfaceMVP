@@ -1,0 +1,2 @@
+start "" /d "C:\Program Files (x86)\Google\Chrome\Application" chrome.exe --start-fullscreen http://localhost:3000
+start "" /d "C:\Users\lynnz\OneDrive - JSJ Corporation\Desktop\GMSmartSurface\ExampleProject\prnds\server" node server.js

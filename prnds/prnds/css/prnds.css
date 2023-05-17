@@ -1,0 +1,83 @@
+body {
+    background-color: black;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 2736px;
+        min-width: 2736px;
+    }
+
+    .brake_pedal {
+        position: absolute;
+        left: 587px;
+        bottom: 220px;
+        border: none;
+    }
+    
+    .engine {
+        position: absolute;
+        bottom: 1042px;
+        right: 1340px;
+        border: none;
+    }
+    
+    .park_gear {
+        position: absolute;
+        bottom: 1325px;
+        right: 1977px;
+        border: none;
+    }
+    
+    .rev_gear {
+        position: absolute;
+        bottom: 1325px;
+        right: 1614px;
+        border: none;
+    }
+    
+    .neutral_gear {
+        position: absolute;
+        bottom: 1325px;
+        right: 1250px;
+        border: none;
+    }
+    
+    .drive_gear {
+        position: absolute;
+        bottom: 1325px;
+        right: 896px;
+        border: none;
+    }
+    
+    .sport_gear {
+        position: absolute;
+        bottom: 1325px;
+        right: 572px; /*157px*/;
+        border: none;
+    }
+
+    .speed{
+        font-size: 230px;
+        color: white;
+        position: absolute;
+        bottom: 770px;
+        right: 1390px;
+    }
+
+    .empty{
+        font-size: 100px;
+        color: white;
+        position: absolute;
+        bottom: 710px;
+        right: 390px;
+    }
+
+    .full{
+        font-size: 100px;
+        color: white;
+        position: absolute;
+        bottom: 1200px;
+        right: 130px;
+    }
+}

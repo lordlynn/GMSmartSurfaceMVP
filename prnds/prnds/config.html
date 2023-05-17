@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Custom Detent Configuration Interface</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/ghsp.css">
+	<script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row pb-3">
+			<div class="col-sm-12 text-center">
+				<h3>Serial Connection Status</h3>
+			</div>
+		</div>
+
+		<div class="row pb-1">
+			<div class="col-sm-12 text-center pb-1"><span id="connectionStatus"></span> </div>
+		</div>
+
+		<div class="row pb-1 text-center">
+			<div class="col-sm-12">
+				<button type="button" id="btnConnect" class="btn btn-primary">Connect</button>
+				<button type="button" id="btnDisconnect" class="btn btn-primary">Disconnect</button>
+			</div>
+		</div>
+
+		<div class="row pb-3 pt-5">
+			<div class="col-sm-12 text-center">
+				<h3>Current Serial Configuration</h3>
+			</div>
+		</div>
+		<div class="row pb-1">
+
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Port: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1"><input id="txtPort" type="text" disabled /></div>
+
+		</div>
+		<div id="availablePorts" class="row pb-1">
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Available: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1" id="portList"></div>
+
+		</div>
+		<div class="row pb-1">
+
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Baud Rate: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1"><input id="txtBaudRate" type="text" disabled /></div>
+
+		</div>
+		<div class="row pb-3">
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Auto Open: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1"><input id="chkAutoOpen" type="checkbox" disabled /></div>
+
+		</div>
+		<div class="row pb-3 text-center">
+			<div class="col-sm-12">
+				<button type="button" id="btnChange" class="btn btn-primary">Change</button>
+				<button type="button" id="btnRefresh" class="btn btn-primary">Refresh</button>
+
+				<button type="button" id="btnReconnect" class="btn btn-primary">Reconnect</button>
+				<button type="button" id="btnReconnectAndSave" class="btn btn-primary">Reconnect & Save</button>
+				<button type="button" id="btnCancel" class="btn btn-primary">Cancel</button>
+
+
+			</div>
+
+		</div>
+		<div class="row pb-3 pt-5">
+			<div class="col-sm-12 text-center">
+				<h3>Saved Serial Configuration</h3>
+			</div>
+		</div>
+		<div class="row pb-1">
+
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Port: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1"><input id="txtSavedPort" type="text" disabled /></div>
+
+		</div>
+		<div class="row pb-1">
+
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Baud Rate: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1"><input id="txtSavedBaudRate" type="text" disabled /></div>
+
+		</div>
+		<div class="row pb-3">
+			<div class="col-xs-12 col-sm-6 text-center text-sm-right pb-1">Auto Open: </div>
+			<div class="col-xs-12 col-sm-6 text-center text-sm-left pb-1"><input id="chkSavedAutoOpen" type="checkbox" disabled /></div>
+
+		</div>
+
+		<div class="row  align-items-end text-center">
+			<div class="col-sm-12">
+				<a href="index.html">
+					<img id="logo_img" src="./logo.png" class="logo-container" />
+				</a>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/scripts/jquery-3.3.1.slim.min.js"></script>
+	<script src="/scripts/bootstrap/bootstrap.min.js"></script>
+
+	<script src="/scripts/config.js"></script>
+
+
+</body>
+
+</html>

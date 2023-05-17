@@ -1,0 +1,142 @@
+
+	canvas{
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	
+	.slidecontainer {
+	margin: auto;
+    width: 33%;
+	font-size: 16pt;
+	}
+
+	
+	#waveform {
+		font-size: 16pt;
+	}
+	
+	
+	#PeakValueOutput {
+		font-size: 16pt;
+	}
+	
+	#PeakPositionOutput {
+		font-size: 16pt;
+	}
+	
+	#RadiusOutput {
+		font-size: 16pt;
+	}
+
+	.slider1 {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 20px;
+		background: #d3d3d3;
+		outline: none;
+		opacity: 0.7;
+		-webkit-transition: .2s;
+		transition: opacity .2s;
+	}
+
+	.slider1:hover {
+		opacity: 1;
+	}
+
+	.slider1::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #0091d7;
+		cursor: pointer;
+	}
+	
+	.slider2 {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 20px;
+		background: #d3d3d3;
+		outline: none;
+		opacity: 0.7;
+		-webkit-transition: .2s;
+		transition: opacity .2s;
+	}
+
+	.slider2:hover {
+		opacity: 1;
+	}
+
+	.slider2::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #ed1c24;
+		cursor: pointer;
+	}
+	
+	.slider3 {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 20px;
+		background: #d3d3d3;
+		outline: none;
+		opacity: 0.7;
+		-webkit-transition: .2s;
+		transition: opacity .2s;
+	}
+
+	.slider3:hover {
+		opacity: 1;
+	}
+
+	.slider3::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #74c043;
+		cursor: pointer;
+	}
+	
+	
+	.logo-container {
+		/* position: absolute;
+		left: 25px;
+		bottom: 25px; */
+	}
+	
+	.button {
+		/* position: absolute;
+		right: 50px;
+		bottom: 50px; */
+		height: 100px;
+		width: 300px;
+		border-radius: 24px;
+		font-size: 36px;
+    }
+    
+    .blue {
+        background-color: #0091d7;
+		color: white;
+    }
+
+    .green {
+        background-color: green;
+		color: white;
+    }
+
+    .pull-right {
+        float: right;
+    }
+
+    .m-y-md {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+ 
