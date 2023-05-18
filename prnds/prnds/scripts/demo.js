@@ -36,7 +36,7 @@ socket.on('socket:msg', function (data) {
 			statusConnecting = false;
 			// -------------- AFTER BROWSER HAS CONNECTED DO SOMETHING HERE --------------
 			setConnectedImage();
-			// shifterSync();
+			partSync();
 			break;
 		case "socket.connect.error":
 			showErrorAlert(data.msg.error);
@@ -45,7 +45,7 @@ socket.on('socket:msg', function (data) {
 			statusConnecting = false;
 			setConnectedImage();
 			break;
-		case "socket.shifter.event":
+		case "socket.part.event":
 			logMessage(data);
 			processShifterEvent(data.msg.code);
 			break;
@@ -170,14 +170,14 @@ function connectButtonHandler() {
 	}
 }
 
-// function shifterSync() {
-// 	socket.emit('socket:msg', {
-// 		type: "shifter.sync",
-// 		msg: {
-// 			socketId: socket.id
-// 		}
-// 	});
-// }
+function partSync() {
+	socket.emit('socket:msg', {
+		type: "part.sync",
+		msg: {
+			socketId: socket.id
+		}
+	});
+}
 
 function processShifterEvent(code) {
 	switch (code) {

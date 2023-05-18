@@ -1,5 +1,6 @@
 const SerialPort = require('serialport');
 var _ = require('lodash');
+var async = require('async');
 const config = require('../../server/config.json');
 
 var port = null;
@@ -113,7 +114,7 @@ function handleReceivedData(data) {
     });
 
     // -------------- EMIT EVENT TO APP WITH THE DATA --------------
-    app.emit("shifter.event.data", arrReceived);
+    app.emit("part.event.data", arrReceived);
 
     RECEIVING = false;
     BUSY = false;
@@ -138,13 +139,13 @@ function partConnected(cb) {
     let timer = setTimeout(function () {
         resetSerialStatus();
         console.log('SERIALPORT : TIMEOUT : Failed to receive \'Z\'');
-        return cb("ERROR - Check Shifter Connection", null);
+        return cb("ERROR - Check Part Connection", null);
     }, serialTimeout);
 
     removeBindings("data");
 
     let arrReceived = [];
-    // ?? WTF going on here. The write and drain happens before this does??
+
     bindLocalDataReceiving(function (data) {
         clearTimeout(timer);
         RECEIVING = true;
@@ -160,7 +161,7 @@ function partConnected(cb) {
         if (arrReceived.length >= 1 && arrReceived[0] == "90") {
             console.log("KEEP ALIVE MESSAGE RECEIVED");
         } else {
-            return cb("ERROR - Shifter did not respond with correct message", null);
+            return cb("ERROR - Part did not respond with correct message", null);
         }
     });
 
@@ -249,7 +250,77 @@ function bindGlobalDataReceiving() {
 }
 
 
-// ?? What is this
+// checks for the current arduino state on serial line
+function _checkState(cb) {
+    RECEIVING = false;
+    SENDING = false;
+
+    let timer = setTimeout(function () {
+        resetSerialStatus();
+        console.log('SERIALPORT : TIMEOUT : Part did not return its state');
+        return cb("ERROR - Sending check state to Part", null);
+    }, serialTimeout);
+
+    removeBindings();
+
+    let arrReceived = [];
+    bindLocalDataReceiving(function (data) {
+        RECEIVING = true;
+
+        _.forEach(data, function (b) {
+            arrReceived.push(b);
+        });
+
+        if (arrReceived.length == 1) {
+            clearTimeout(timer);
+            RECEIVING = false;
+            cb(null, arrReceived);
+
+        }
+    });
+
+    SENDING = true;
+    writeAndDrain('H', function () {
+        SENDING = false;
+    });
+}
+
+
+
+function _getPartState(cb) {
+    if (port.isOpen && !BUSY && !SENDING && !RECEIVING) {
+        console.log('SERIALPORT : GET PART STATE');
+        BUSY = true;
+        removeBindings("data");
+
+        async.waterfall([
+            function (callback) {
+                _checkState(function(e,r) {
+                    callback(e,r);
+                });
+            },
+            function (received, callback) {
+                //compare results
+                removeBindings("data");
+                bindGlobalDataReceiving();
+
+                callback(null, received);
+
+            }
+        ], function (err, result) {
+            BUSY = false;
+            cb(err, result);
+        });
+
+    } else {
+        //failed
+        console.log('SERIALPORT : ERROR : Cannot get part state');
+        cb("SERIALPORT : ERROR : Cannot get part state", null);
+    }
+}
+
+
+
 module.exports = {
     initializeSerialConnection,
     writeData,
@@ -359,4 +430,19 @@ module.exports = {
             cb(e, null);
         });
     },
+
+    getPartState: function(cb) {
+        if (port.isOpen) {
+            console.log('SERIALPORT : EVENT : GETTING PART STATE');
+
+            _getPartState(function(e,r) {
+                cb(e,r);
+            });
+        } else {
+            _app.emit("socket.connect.error", "ERROR - Serial port is disconnected");
+            cb("ERROR - Serial port is disconnected", null);
+        }
+    },
+
+
 };

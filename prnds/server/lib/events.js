@@ -61,9 +61,9 @@ exports = module.exports = {
 
         });
 
-        app.on("shifter.event.data", (stream) => {
+        app.on("part.event.data", (stream) => {
             _.each(stream, function(value) {
-                _emitMessage("socket.shifter.event", {
+                _emitMessage("socket.part.event", {
                     serialConnected: serialPort.isOpen(),
                     code: value
                 });
@@ -78,6 +78,7 @@ function _emitMessage(type, msg) {
     async.each(_sockets, function (sid, callback) {
         msg.socketId = sid;
         console.log('Sending _emitMessage to socket id = ', sid);
+
         _io.sockets.sockets[sid].emit("socket:msg", {
             type: type,
             msg: msg
@@ -128,8 +129,9 @@ function _emitSocketStatusMessage(socketId, type, status) {
 }
 
 function _processMessage(message, socketId) {
-    console.log(message)
+    // console.log("Socket: MSG : ", message.type)
     switch (message.type) {
+        // --------------- SERIAL COMMUNICATION CASES ---------------
         case "serial.connect":
             serialPort.connect(function (e, r) {
                 if (e) {
@@ -229,11 +231,13 @@ function _processMessage(message, socketId) {
                 }
             })
             break;
+        // --------------- CUSTOM SHIFTER CASES ---------------
+        // DELETE THIS CASE
         case "event.brake":
             console.log('EVENTS : PROCESS : event.brake ', socketId);
             serialPort.eventBrake(message.msg.state, function(e,r) {
                 if (e) {
-                    _emitSocketMessage(socketId, "socket.shifter.event.error", {
+                    _emitSocketMessage(socketId, "socket.part.event.error", {
                         serialConnected: serialPort.isOpen(),
                         socketId: socketId,
                         error: "Error re-connecting to serial port:  " + serialPort.portName()
@@ -245,7 +249,7 @@ function _processMessage(message, socketId) {
                 console.log('EVENTS : PROCESS : event.indicator ', socketId);
                 serialPort.eventIndicator(message.msg.state, function(e,r) {
                     if (e) {
-                        _emitSocketMessage(socketId, "socket.shifter.event.error", {
+                        _emitSocketMessage(socketId, "socket.part.event.error", {
                             serialConnected: serialPort.isOpen(),
                             socketId: socketId,
                             error: "Error re-connecting to serial port:  " + serialPort.portName()
@@ -253,6 +257,7 @@ function _processMessage(message, socketId) {
                     }
                 });
                 break;
+        // DELETE THIS CASE?? Doesnt seem to be getting called
         case "shifter.connected":
             console.log('EVENTS : PROCESS : shifter.connected', socketId);
             serialPort.shifterConnected(function (e, r) {
@@ -275,18 +280,19 @@ function _processMessage(message, socketId) {
                 }
             });
         break;
-        case "shifter.sync":
-                console.log('EVENTS : PROCESS : shifter.sync', socketId);
-                serialPort.shifterState( function(e,r) {
+        // DELETE THIS CASE
+        case "part.sync":
+                console.log('EVENTS : PROCESS : part.sync', socketId);
+                serialPort.getPartState( function(e,r) {
                     if (e) {
-                        _emitSocketMessage(socketId, "socket.shifter.event.error", {
+                        _emitSocketMessage(socketId, "socket.part.event.error", {
                             serialConnected: serialPort.isOpen(),
                             socketId: socketId,
                             error: "Error re-connecting to serial port:  " + serialPort.portName()
                         });
                     } else {
                         _.each(r, function(value) {
-                            _emitSocketMessage(socketId, "socket.shifter.event", {
+                            _emitSocketMessage(socketId, "socket.part.event", {
                                 serialConnected: serialPort.isOpen(),
                                 socketId: socketId,
                                 code: value
