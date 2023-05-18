@@ -211,7 +211,7 @@ function bindOpenListener() {
                     }
                 });
             } else {
-                app.emit("socket.connect.error", "ERROR - Connecting to serial port: " + _portName);
+                app.emit("socket.connect.error", "ERROR - Connecting to serial port: " + port.portName);
             }
         }, 1000);
     });

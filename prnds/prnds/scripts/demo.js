@@ -1,3 +1,4 @@
+
 var enableLogging = true;
 
 var statusSerialConnected = false;
@@ -189,10 +190,14 @@ function processShifterEvent(code) {
 			document.getElementById("brake_img").src = "./images/brake_off.png";
 			brakeState = false;
 			break;
+		// TESTING HERE
 		case 68:
 			clearIndicatorState();
 			driveState = true;
-			document.getElementById("drive_img").src = "./images/d_selected.png";
+			const drive = document.getElementById("drive_img");
+			drive.style.transform = 'rotate(90deg)';
+			drive.style.transform = 'translate(500px, 500px)';
+
 			break;
 		case 80:
 			clearIndicatorState();
@@ -227,7 +232,13 @@ function clearIndicatorState() {
 	revState = false;
 	neutralState = false;
 
-	document.getElementById("drive_img").src = "./images/d.png";
+	const drive = document.getElementById("drive_img");
+	// document.getElementById("drive_img").src = "./images/d.png";
+	drive.style.transform = 'rotate(0deg)';
+	drive.style.transform = 'translate(0px,0px)';
+
+
+
 	document.getElementById("park_img").src = "./images/p.png";
 	document.getElementById("sport_img").src = "./images/s.png";
 	document.getElementById("rev_img").src = "./images/r.png";
